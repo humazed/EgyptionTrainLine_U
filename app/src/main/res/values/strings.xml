@@ -1,0 +1,24 @@
+<resources>
+    <string name="app_name">Egyption Train Line</string>
+
+    <!--MainActivity screen stat-->
+    <string name="from">From</string>
+    <string name="to">To</string>
+    <string name="toggle_stations_description">toggle stations</string>
+    <string name="go">Go</string>
+    <string name="station_from_hint">Departure station</string>
+    <string name="station_to_hint">Arrival station</string>
+
+    <string name="choose_station_msg">Please choose station</string>
+    <!--MainActivity screen end-->
+
+
+    <!--roe_result start-->
+    <!--todo make color vary depending on time-->
+    <string name="leaves_in"><![CDATA[Leaves in: <br> <b><font color=#009688>%1$s</font></b>]]></string>
+    <string name="changes_number">%1$d changes</string>
+    <string name="title_result_list">Results</string>
+    <string name="title_result_detail">Result Detail</string>
+    <!--roe_result end-->
+
+</resources>
