@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "1002665243237",
+    "firebase_url": "https://egyptiontrainline-u.firebaseio.com",
+    "project_id": "egyptiontrainline-u",
+    "storage_bucket": "egyptiontrainline-u.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1002665243237:android:00aecf29f83871f9",
+        "android_client_info": {
+          "package_name": "humazed.github.com.egyptiontrainline_u"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1002665243237-qe7ivi967amh5c7srod20vghogun8a5s.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCs-NqMszLtyGIdMDZQYspR32WQnJxmsYY"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

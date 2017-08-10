@@ -30,8 +30,9 @@ dependencies {
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
+    testCompile 'junit:junit:4.12'
 
-//    compile 'com.android.support:support-v4:26.0.0'
+    compile "com.android.support:support-v4:$support_version"
     compile "com.android.support:appcompat-v7:$support_version"
     compile "com.android.support:design:$support_version"
     compile "com.android.support:transition:$support_version"
@@ -41,18 +42,6 @@ dependencies {
 
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
 
-
-
-
-
-
-
-
-
-
-
-
-    compile 'com.android.support.constraint:constraint-layout:1.0.2'
     compile 'io.reactivex.rxjava2:rxandroid:2.0.1'
     compile 'io.reactivex.rxjava2:rxjava:2.1.0'
     compile 'net.sourceforge.streamsupport:streamsupport:1.5.5'
@@ -68,13 +57,14 @@ dependencies {
     compile 'com.blankj:utilcode:1.8.1'
     compile 'com.google.code.gson:gson:2.8.0'
     compile 'com.jakewharton.threetenabp:threetenabp:1.0.5'
-    compile 'com.android.support:support-v4:25.+'
-    compile 'com.android.support:recyclerview-v7:25.+'
-    compile 'com.android.support:design:25.+'
-    testCompile 'junit:junit:4.12'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.0.0'
     annotationProcessor 'com.google.auto.value:auto-value:1.2'
     annotationProcessor 'com.ryanharter.auto.value:auto-value-parcel:0.2.5'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.0'
     provided 'frankiesardo:icepick-processor:3.2.0'
+
+    compile 'com.google.firebase:firebase-core:10.0.1'
+
 }
+
+apply plugin: 'com.google.gms.google-services'

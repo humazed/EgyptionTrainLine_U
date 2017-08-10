@@ -13,6 +13,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.gson.reflect.TypeToken;
 
 import java.util.ArrayList;
@@ -53,12 +54,14 @@ public class MainActivity extends AppCompatActivity {
     @BindView(R.id.from_input_layout) TextInputLayout mFromInputLayout;
     @BindView(R.id.to_input_layout) TextInputLayout mToInputLayout;
 
+    private FirebaseAnalytics mFirebaseAnalytics;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
+        mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
 
         ArrayList<Station> stations = Db.getStations(this);
 
@@ -98,6 +101,10 @@ public class MainActivity extends AppCompatActivity {
     int mAppWidgetId = INVALID_APPWIDGET_ID;
 
     private void configWidget(Station startStation, Station arrivalStation) {
+        Bundle bundle = new Bundle();
+        bundle.putString(FirebaseAnalytics.Param.ITEM_NAME, "added widget");
+        mFirebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_CONTENT, bundle);
+
         mGoButton.setOnClickListener(v -> {
             // When the button is clicked, store the string locally
             saveResultsPref(this, mAppWidgetId, Db.getResults(startStation, arrivalStation, this));
