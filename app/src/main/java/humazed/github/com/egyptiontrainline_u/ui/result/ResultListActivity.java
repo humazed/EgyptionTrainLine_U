@@ -6,6 +6,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.view.MenuItem;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+
 import java.util.ArrayList;
 
 import butterknife.BindBool;
@@ -24,6 +27,7 @@ public class ResultListActivity extends AppCompatActivity {
     private static final String TAG = ResultListActivity.class.getSimpleName();
 
     @BindView(R.id.resultRecyclerView) RecyclerView mResultRecyclerView;
+    @BindView(R.id.adView) AdView mAdView;
 
     @BindBool(R.bool.isTablet) boolean isTablet;
 
@@ -34,6 +38,7 @@ public class ResultListActivity extends AppCompatActivity {
         setContentView(R.layout.activity_result_list);
         ButterKnife.bind(this);
         if (getSupportActionBar() != null) getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        setupAdView();
 
         Station startStation = getIntent().getParcelableExtra(MainActivity.KEY_ARRIVAL_STATION);
         Station arrivalStation = getIntent().getParcelableExtra(MainActivity.KEY_START_STATION);
@@ -42,6 +47,11 @@ public class ResultListActivity extends AppCompatActivity {
 
         setupRecyclerView(results);
 
+    }
+
+    private void setupAdView() {
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mAdView.loadAd(adRequest);
     }
 
     private void setupRecyclerView(ArrayList<Result> results) {

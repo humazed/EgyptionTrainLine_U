@@ -2,6 +2,7 @@ package humazed.github.com.egyptiontrainline_u;
 
 import android.app.Application;
 
+import com.google.android.gms.ads.MobileAds;
 import com.jakewharton.threetenabp.AndroidThreeTen;
 
 /**
@@ -17,5 +18,7 @@ public class App extends Application {
         super.onCreate();
 
         AndroidThreeTen.init(this);
+
+        MobileAds.initialize(this, "ca-app-pub-3940256099942544~3347511713");
     }
 }
