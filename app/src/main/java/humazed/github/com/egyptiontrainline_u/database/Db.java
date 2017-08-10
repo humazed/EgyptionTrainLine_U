@@ -94,6 +94,7 @@ public class Db {
                         getString(cursor, "TypeArabic"),
                         getString(cursor, "WorkingState"),
                         getInt(cursor, "FK_TrainLineID"),
+                        getInt(cursor, "TrainNumber"),
                         startStation,
                         arrivalStation,
                         getChanges(getInt(cursor, "FK_TrainLineID"), getInt(cursor, "TrainID"), db)

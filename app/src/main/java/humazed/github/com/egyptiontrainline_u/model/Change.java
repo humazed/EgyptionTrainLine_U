@@ -6,10 +6,13 @@ import com.google.auto.value.AutoValue;
 
 import org.threeten.bp.LocalDateTime;
 
+import humazed.github.com.egyptiontrainline_u.util.auto_gson.AutoGson;
+
 /**
  * User: YourPc
  * Date: 8/9/2017
  */
+@AutoGson
 @AutoValue
 public abstract class Change implements Parcelable {
     public abstract String startStationName();

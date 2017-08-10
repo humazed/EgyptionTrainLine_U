@@ -4,10 +4,13 @@ import android.os.Parcelable;
 
 import com.google.auto.value.AutoValue;
 
+import humazed.github.com.egyptiontrainline_u.util.auto_gson.AutoGson;
+
 /**
  * User: YourPc
  * Date: 8/9/2017
  */
+@AutoGson
 @AutoValue
 public abstract class Station implements Parcelable {
     public abstract String id();
