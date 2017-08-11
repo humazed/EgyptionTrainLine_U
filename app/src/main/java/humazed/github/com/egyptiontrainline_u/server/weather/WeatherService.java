@@ -1,5 +1,6 @@
 package humazed.github.com.egyptiontrainline_u.server.weather;
 
+import android.content.Context;
 import android.os.AsyncTask;
 
 import com.google.gson.Gson;
@@ -21,9 +22,8 @@ public class WeatherService {
 
     private static final String API_KEY = "9e260ab03af5814e41fd7315ef2968f2";
 
-    public static void getWeather(String city, Consumer<Weather> onLoadFinish) {
+    public static void getWeather(Context context, String city, Consumer<Weather> onLoadFinish) {
         new AsyncTask<String, Void, Void>() {
-
             @Override
             protected Void doInBackground(String... params) {
                 final OkHttpClient client = new OkHttpClient();

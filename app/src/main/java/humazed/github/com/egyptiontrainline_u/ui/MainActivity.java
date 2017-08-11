@@ -14,7 +14,14 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.firebase.jobdispatcher.Constraint;
+import com.firebase.jobdispatcher.FirebaseJobDispatcher;
+import com.firebase.jobdispatcher.GooglePlayDriver;
+import com.firebase.jobdispatcher.Job;
+import com.firebase.jobdispatcher.RetryStrategy;
+import com.firebase.jobdispatcher.Trigger;
 import com.google.firebase.analytics.FirebaseAnalytics;
+import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 import java.util.ArrayList;
@@ -27,6 +34,8 @@ import humazed.github.com.egyptiontrainline_u.custom_views.InstantAutoCompleteTe
 import humazed.github.com.egyptiontrainline_u.database.Db;
 import humazed.github.com.egyptiontrainline_u.model.Result;
 import humazed.github.com.egyptiontrainline_u.model.Station;
+import humazed.github.com.egyptiontrainline_u.model.weather.Weather;
+import humazed.github.com.egyptiontrainline_u.server.weather.WeatherJobService;
 import humazed.github.com.egyptiontrainline_u.server.weather.WeatherService;
 import humazed.github.com.egyptiontrainline_u.ui.result.ResultListActivity;
 import humazed.github.com.egyptiontrainline_u.util.auto_gson.GsonAutoValue;
@@ -46,6 +55,7 @@ public class MainActivity extends AppCompatActivity {
     public static final String KEY_RESULTS = "results";
     public static final String KEY_START_STATION = "MainActivity:arrivalStation";
     public static final String KEY_ARRIVAL_STATION = "MainActivity:startStation";
+    public static final String TAG_WEATHER_JOB_SERVICE = "WeatherJobService-tag";
 
     @BindView(R.id.fromTextView) TextView mFromTextView;
     @BindView(R.id.toTextView) TextView mToTextView;
@@ -68,6 +78,7 @@ public class MainActivity extends AppCompatActivity {
         mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
 
         setupWeather();
+        setupWeatherJobService();
 
         ArrayList<Station> stations = Db.getStations(this);
 
@@ -98,8 +109,23 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    private void setupWeatherJobService() {
+        FirebaseJobDispatcher dispatcher = new FirebaseJobDispatcher(new GooglePlayDriver(this));
+        Job myJob = dispatcher.newJobBuilder()
+                .setService(WeatherJobService.class) // the JobService that will be called
+                .setTag(TAG_WEATHER_JOB_SERVICE)        // uniquely identifies the job
+                .setTrigger(Trigger.NOW)
+                .setRetryStrategy(RetryStrategy.DEFAULT_EXPONENTIAL)
+                .setConstraints(Constraint.ON_ANY_NETWORK)
+                .build();
+
+        dispatcher.mustSchedule(myJob);
+    }
+
     private void setupWeather() {
-        WeatherService.getWeather("cairo", weather -> runOnUiThread(() -> {
+        loadWeatherFromCache();
+
+        WeatherService.getWeather(this, "cairo", weather -> runOnUiThread(() -> {
             mTempTextView.setText(String.valueOf(weather.getMain().getTemp()));
 
             String iconId = weather.getWeather().get(0).getIcon();
@@ -107,6 +133,20 @@ public class MainActivity extends AppCompatActivity {
                     .load("http://openweathermap.org/img/w/" + iconId + ".png")
                     .into(mWeatherImageView);
         }));
+    }
+
+    private void loadWeatherFromCache() {
+        SharedPreferences prefs = getSharedPreferences(getString(R.string.pref_weather), Context.MODE_PRIVATE);
+        Weather cachedWeather = new Gson().fromJson(
+                prefs.getString(getString(R.string.pref_weather_gson), ""), Weather.class);
+        if (cachedWeather != null) {
+            mTempTextView.setText(String.valueOf(cachedWeather.getMain().getTemp()));
+
+            String iconId = cachedWeather.getWeather().get(0).getIcon();
+            Glide.with(this)
+                    .load("http://openweathermap.org/img/w/" + iconId + ".png")
+                    .into(mWeatherImageView);
+        }
     }
 
 

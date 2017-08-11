@@ -22,6 +22,8 @@
     <string name="appwidget_text">EXAMPLE</string>
     <string name="configure">Configure</string>
     <string name="add_widget">Add widget</string>
+    <string name="pref_weather">pref_weather</string>
+    <string name="pref_weather_gson">pref_weather_gson</string>
     <!--roe_result end-->
 
 </resources>
