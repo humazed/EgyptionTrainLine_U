@@ -17,11 +17,10 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import humazed.github.com.egyptiontrainline_u.R;
+import humazed.github.com.egyptiontrainline_u.firebase.FlagUtil;
 import humazed.github.com.egyptiontrainline_u.model.Result;
 import humazed.github.com.egyptiontrainline_u.util.DateUtil;
 import humazed.github.com.egyptiontrainline_u.util.TextUtil;
-
-import static humazed.github.com.egyptiontrainline_u.R.id.leavesIn;
 
 /**
  * User: YourPc
@@ -37,10 +36,12 @@ public class ResultsAdapter extends BaseQuickAdapter<Result, BaseViewHolder> {
     @BindView(R.id.arrivalStationName) TextView mArrivalStationName;
     @BindView(R.id.journey_planner_bar) ImageView mJourneyPlannerBar;
     @BindView(R.id.journey_planner_changes_bar) PercentFrameLayout mJourneyPlannerChangesBar;
-    @BindView(leavesIn) TextView mLeavesIn;
     @BindView(R.id.changesNumber) TextView mChangesNumber;
     @BindView(R.id.ticketPrice) TextView mTicketPrice;
     @BindView(R.id.rowDivider) View mRowDivider;
+    @BindView(R.id.leavesIn) TextView mLeavesIn;
+    @BindView(R.id.flagImageView) ImageView mFlagImageView;
+    @BindView(R.id.flagsNumberTextView) TextView mFlagsNumberTextView;
 
     public ResultsAdapter(@Nullable List<Result> data) {
         super(R.layout.row_result, data);
@@ -61,6 +62,9 @@ public class ResultsAdapter extends BaseQuickAdapter<Result, BaseViewHolder> {
 
         helper.setText(R.id.changesNumber, mContext.getString(R.string.changes_number, result.changes().size() + 1));
 
+        mFlagImageView.setOnClickListener(v -> FlagUtil.flag(result.trainID()));
 
+        FlagUtil.getFlagNumber(result.trainID(),
+                count -> helper.setText(R.id.flagsNumberTextView, String.valueOf(count)));
     }
 }
