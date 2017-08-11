@@ -13,6 +13,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.gson.reflect.TypeToken;
 
@@ -26,6 +27,7 @@ import humazed.github.com.egyptiontrainline_u.custom_views.InstantAutoCompleteTe
 import humazed.github.com.egyptiontrainline_u.database.Db;
 import humazed.github.com.egyptiontrainline_u.model.Result;
 import humazed.github.com.egyptiontrainline_u.model.Station;
+import humazed.github.com.egyptiontrainline_u.server.weather.WeatherService;
 import humazed.github.com.egyptiontrainline_u.ui.result.ResultListActivity;
 import humazed.github.com.egyptiontrainline_u.util.auto_gson.GsonAutoValue;
 import humazed.github.com.egyptiontrainline_u.widgets.ResultWidget;
@@ -53,6 +55,8 @@ public class MainActivity extends AppCompatActivity {
     @BindView(startAutocomplete) InstantAutoCompleteTextView mArrivalAutocomplete;
     @BindView(R.id.from_input_layout) TextInputLayout mFromInputLayout;
     @BindView(R.id.to_input_layout) TextInputLayout mToInputLayout;
+    @BindView(R.id.tempTextView) TextView mTempTextView;
+    @BindView(R.id.weatherImageView) ImageView mWeatherImageView;
 
     private FirebaseAnalytics mFirebaseAnalytics;
 
@@ -62,6 +66,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
         mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
+
+        setupWeather();
 
         ArrayList<Station> stations = Db.getStations(this);
 
@@ -90,6 +96,17 @@ public class MainActivity extends AppCompatActivity {
             configWidget(stations.get(stationNames.indexOf(mStartAutocomplete.getText().toString())),
                     stations.get(stationNames.indexOf(mArrivalAutocomplete.getText().toString())));
         }
+    }
+
+    private void setupWeather() {
+        WeatherService.getWeather("cairo", weather -> runOnUiThread(() -> {
+            mTempTextView.setText(String.valueOf(weather.getMain().getTemp()));
+
+            String iconId = weather.getWeather().get(0).getIcon();
+            Glide.with(this)
+                    .load("http://openweathermap.org/img/w/" + iconId + ".png")
+                    .into(mWeatherImageView);
+        }));
     }
 
 

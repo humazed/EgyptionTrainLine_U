@@ -71,6 +71,11 @@ dependencies {
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.0'
     provided 'frankiesardo:icepick-processor:3.2.0'
 
+//    compile 'com.squareup.retrofit2:retrofit:2.3.0'
+//    compile 'com.squareup.retrofit2:converter-gson:2.3.0'
+    compile 'com.squareup.okhttp3:okhttp:3.8.1'
+    compile 'com.google.code.gson:gson:2.8.1'
+
     compile 'com.google.firebase:firebase-core:11.0.4'
     compile 'com.google.firebase:firebase-ads:11.0.4'
     compile 'com.google.firebase:firebase-database:11.0.4'

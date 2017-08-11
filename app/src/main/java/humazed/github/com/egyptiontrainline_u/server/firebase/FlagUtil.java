@@ -1,4 +1,4 @@
-package humazed.github.com.egyptiontrainline_u.firebase;
+package humazed.github.com.egyptiontrainline_u.server.firebase;
 
 import android.util.Log;
 

@@ -17,7 +17,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import humazed.github.com.egyptiontrainline_u.R;
-import humazed.github.com.egyptiontrainline_u.firebase.FlagUtil;
+import humazed.github.com.egyptiontrainline_u.server.firebase.FlagUtil;
 import humazed.github.com.egyptiontrainline_u.model.Result;
 import humazed.github.com.egyptiontrainline_u.util.DateUtil;
 import humazed.github.com.egyptiontrainline_u.util.TextUtil;
